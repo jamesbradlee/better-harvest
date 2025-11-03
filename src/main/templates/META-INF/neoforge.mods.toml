@@ -1,0 +1,29 @@
+modLoader = "kotlinforforge"
+loaderVersion = "${loaderVersionRange}"
+license = "${modLicense}"
+issueTrackerURL="https://github.com/jamesbradlee/better-harvest/issues"
+[[mods]]
+modId = "${modId}"
+version = "${modVersion}"
+displayName = "${modName}"
+# A URL to query for updates for this mod. See the JSON update specification https://docs.neoforge.net/docs/misc/updatechecker/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+displayURL="https://github.com/jamesbradlee/better-harvest"
+# credits=""
+authors = "${modAuthors}"
+description = '''${modDescription}'''
+
+[[dependencies."${modId}"]]
+modId = "neoforge"
+type = "required"
+reason="This mod requires NeoForge to run."
+versionRange = "${neoVersionRange}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${modId}"]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraftVersionRange}"
+ordering = "NONE"
+side = "BOTH"
