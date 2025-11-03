@@ -34,7 +34,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
-            gradle-version: "8"
+            gradle-version: "8.14.2"
 
       - name: Upload to CurseForge
         run: ./gradlew publishCurseforge
@@ -58,7 +58,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
-          gradle-version: "8"
+          gradle-version: "8.14.2"
 
       - name: Upload to Modrinth
         run: ./gradlew publishModrinth
