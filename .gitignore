@@ -3,6 +3,7 @@
 !/**/
 
 !/.gitignore
+!/.github/workflows/*.yaml
 !/gradle/libs.versions.toml
 !/**/src/**/*.kt
 !/**/src/**/*.toml
