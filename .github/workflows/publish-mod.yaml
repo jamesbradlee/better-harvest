@@ -37,7 +37,7 @@ jobs:
             gradle-version: "8.14.2"
 
       - name: Upload to CurseForge
-        run: ./gradlew publishCurseforge
+        run: gradle publishCurseforge
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
@@ -61,6 +61,6 @@ jobs:
           gradle-version: "8.14.2"
 
       - name: Upload to Modrinth
-        run: ./gradlew publishModrinth
+        run: gradle publishModrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
