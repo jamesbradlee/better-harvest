@@ -9,10 +9,12 @@ neoforge-plugin = "2.0.116"
 loader-range = "[6.0,)"
 parchment-minecraft = "1.21.10"
 parchment-mappings = "2025.10.12"
+mod-publish = "1.1.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 neoforge = { id = "net.neoforged.moddev", version.ref = "neoforge-plugin" }
+mod-publish = { id = "me.modmuss50.mod-publish-plugin", version.ref = "mod-publish" }
 
 [libraries]
 kotlinforforge = { module = "thedarkcolour:kotlinforforge-neoforge", version.ref = "kotlinforforge" }

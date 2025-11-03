@@ -1,8 +1,10 @@
+import org.gradle.kotlin.dsl.support.normaliseLineSeparators
 import org.slf4j.event.Level
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.neoforge)
+    alias(libs.plugins.mod.publish)
     `maven-publish`
     idea
 }
@@ -18,11 +20,12 @@ object Mod {
     val id = "jamesons_better_harvest"
     val group = "io.jmsn.mc"
     val name = "Jameson's Better Harvest"
-    val version = "0.1.0-mc.1.21.10"
+    val version = "0.1.0"
     val license = "All Rights Reserved"
     val authors = "ImJamesB"
     val description =
         "Better Harvest is a Minecraft mod that improves the farming experience by adding new features and mechanics to make harvesting crops more efficient and enjoyable."
+    val minecraftVersions = listOf("1.21.10")
 }
 
 version = Mod.version
@@ -175,4 +178,55 @@ publishing {
             }
         }
     }
+}
+
+if (System.getenv("CI") == "true") {
+    publishMods {
+        file = tasks.jar.get().archiveFile
+        changelog = getChangelogText()
+        type = ALPHA
+        modLoaders.addAll("neoforge")
+        displayName = "${Mod.name} ${Mod.version}"
+
+        curseforge {
+            projectId = "1378177"
+            projectSlug = "jamesons-better-harvest"
+            accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+            minecraftVersions.addAll(Mod.minecraftVersions)
+        }
+
+        modrinth {
+            projectId = "GkjUUR9X"
+            accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+            minecraftVersions.addAll(Mod.minecraftVersions)
+        }
+    }
+}
+
+private fun getChangelogText(): String {
+    val file = file("CHANGELOG.md")
+
+    if (!file.exists()) {
+        return "No changelog found."
+    }
+
+    var content = ""
+    var capturing = false
+
+    for (line in file.readText().normaliseLineSeparators().lineSequence()) {
+        if (line.startsWith("## ${Mod.version} - ")) {
+            capturing = true
+            continue
+        } else if (line.startsWith("## ")) {
+            if (capturing) {
+                break
+            }
+        } else {
+            if (capturing) {
+                content += line + "\n"
+            }
+        }
+    }
+
+    return content.ifBlank { "No changelog found for version ${Mod.version}." }.trim()
 }
